@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>HOLA</h1>
+    <button id="datos">Solicita datos api</button>
+    <div id="frutas">
+    </div>
+    <!--A través de varios métodos, jQuery provee soporte para Ajax -->
+    <!-- El uso de type se concibió para indicarle al navegador qué lenguaje era el que usaba el script -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script type='text/javascript'>
+        $("#datos").on("click", function() {
+            console.log("holis");
+            $.ajax({
+                type: 'GET',
+                url: "/solicitaDatos",
+                beforeSend: function(){
+                    console.log("Enviando request...");
+                },
+                success: function (response) {
+                    console.log("Exitoso")
+                    console.log(response)
+                    crearFruta(response)
+                },
+                error: function (response) {
+                  console.log(response)
+                  alert("Paila falle")
+                }
+            });
+        });
+        function crearFruta(data){
+            for(let i=0;i<data["frutas"].length;i++){
+                let buttonn = document.createElement('button')
+                buttonn.innerText = data["frutas"][i]
+                document.getElementById("frutas").appendChild(buttonn);
+            }
+        }
+    </script>
+</body>
+</html>
