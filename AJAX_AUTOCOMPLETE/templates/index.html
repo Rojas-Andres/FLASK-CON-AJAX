@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autocomplete</title>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+</head>
+<body>
+
+    <h1>Autocomplete</h1>
+    {{ form.autocomplete.label }} : {{ form.autocomplete }}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+    <script type="text/javascript">
+        $(function(){
+
+            $.ajax({
+                url:'/paises',
+                success: function(response){
+                    console.log("LA API RESPONDIO BIEN",response)
+                    $('#pais_autocomplete').autocomplete({
+                        source:response["paises"],
+                        minLength: 2
+                    })
+                }
+            })
+        })
+    </script>
+    
+</body>
+</html>
